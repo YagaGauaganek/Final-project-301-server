@@ -3,7 +3,7 @@ require("dotenv").config();
 
 mongoose.connect(process.env.DATABASE_URL);
 
-const Photo = require("./Library/gallery");
+const Photo = require("./Models/photo");
 
 async function seed() {
   await Photo.create({
