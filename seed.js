@@ -15,6 +15,7 @@ async function seed() {
     liked: 0,
     faved: true,
   });
+  mongoose.disconnect()
 }
 
 seed();

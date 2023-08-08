@@ -1,23 +1,34 @@
 const express = require("express");
 const cors = require("cors");
-// const mongoose = require("mongoose");
+const mongoose = require("mongoose");
 require("dotenv").config();
-// const Photo = require("./models/photos");
 const bp = require("body-parser");
-
 const app = express();
 app.use(cors());
-
 app.use(bp.json());
-
-// mongoose
-//   .connect(process.env.DATABASE_URL)
-//   .then(() => console.log("DB Connected"));
-
 const PORT = process.env.PORT || 9080;
+
+
+const Photo = require("./Models/photo");
+mongoose.connect(process.env.DATABASE_URL)
+
 
 app.get("/", (request, response) => {
   response.status(200).json("welcome");
 });
+
+//Read
+
+app.get("/photos", async (request, response) =>{
+  try{
+    console.log("server linked")
+    const allPhotos = await Photo.find(request.query)
+    response.status(200).json(allPhotos)
+  } catch (error) {
+    console.log("server issue")
+    response.status(404).json(error)
+  }
+})
+
 
 app.listen(PORT, () => console.log(`summoning a server on  PORT: ${PORT}`));
