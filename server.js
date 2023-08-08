@@ -43,5 +43,19 @@ app.post("/photos", async (request, response) => {
   }
 })
 
+// Update
+
+app.put("/photos/:_id", async (request, response) => {
+  try{
+    const updatePhoto = await Photo.findByIdAndUpdate(
+      request.params._id,
+      request.body
+    )
+    response.status(200).send(updatePhoto)
+  } catch (error){
+    response.status(404).json(error)
+  }
+})
+
 
 app.listen(PORT, () => console.log(`summoning a server on  PORT: ${PORT}`));
