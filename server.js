@@ -30,5 +30,18 @@ app.get("/photos", async (request, response) =>{
   }
 })
 
+//Add
+
+app.post("/photos", async (request, response) => {
+  try{
+    const newPhoto = await Photo.create(request.body);
+    console.log(newPhoto)
+    response.status(200).json(newPhoto)
+  } catch (error){
+    console.log(error)
+    respose.status(500).json(error)
+  }
+})
+
 
 app.listen(PORT, () => console.log(`summoning a server on  PORT: ${PORT}`));
