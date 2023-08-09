@@ -55,4 +55,15 @@ app.put("/photos/:_id", async (request, response) => {
   }
 });
 
+// Delete
+
+app.delete("/photos/:_id", async (request, response) => {
+  try{
+    const deletePhoto = await Photo.findByIdAndDelete(request.params._id)
+    response.status(200).send(deletePhoto)
+  } catch(error){
+    console.log(error)
+    response.status(500).json(error)
+  }
+})
 app.listen(PORT, () => console.log(`summoning a server on  PORT: ${PORT}`));
